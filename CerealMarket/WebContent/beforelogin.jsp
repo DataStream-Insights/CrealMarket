@@ -1,7 +1,10 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ page errorPage="ErrorPage.jsp"%>
+
+
 <html>
 <head>
+<jsp:include page="/common/header.jsp" />
 <link rel="stylesheet"   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
