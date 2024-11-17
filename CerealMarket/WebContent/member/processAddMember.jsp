@@ -25,9 +25,20 @@
 	java.sql.Timestamp timestamp = new java.sql.Timestamp(currentDatetime.getTime());
 %>
 
-<sql:setDataSource var="dataSource"
-	url="jdbc:mysql://localhost:3306/cerealMarketDB"
-	driver="com.mysql.jdbc.Driver" user="root" password="1234" />
+<%@ page import="util.ConfigLoader" %>
+<%
+    String dbUrl = ConfigLoader.getDbUrl();
+    String dbUsername = ConfigLoader.getDbUsername();
+    String dbPassword = ConfigLoader.getDbPassword();
+%>
+<c:set var="dbUrl" value="<%= dbUrl %>" />
+<c:set var="dbUsername" value="<%= dbUsername %>" />
+<c:set var="dbPassword" value="<%= dbPassword %>" />
+<sql:setDataSource var="dataSource" driver="com.mysql.cj.jdbc.Driver"
+    url="${dbUrl}" user="${dbUsername}" password="${dbPassword}" />
+
+	
+
 
 <sql:update dataSource="${dataSource}" var="resultSet">
    INSERT INTO member VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
