@@ -4,27 +4,32 @@
 <%@ page import="dao.cerealRepository"%>
 
 <%
-	String id = request.getParameter("id");
-	if (id == null || id.trim().equals("")) {
-		response.sendRedirect("cheeriosproduct.jsp");
-		return;
-	}
+    String id = request.getParameter("id");
+    if (id == null || id.trim().equals("")) {
+        response.sendRedirect("cart.jsp");
+        return;
+    }
 
-	cerealRepository dao = cerealRepository.getInstance();
-	
-	cereal cereal = dao.getcerealById(id);
-	if (cereal == null) {
-		response.sendRedirect("ErrorPage.jsp");
-	}
+    cerealRepository dao = cerealRepository.getInstance();
+    
+    cereal cereal = dao.getcerealById(id);
+    if (cereal == null) {
+        response.sendRedirect("ErrorPage.jsp");
+        return;
+    }
 
-	ArrayList<cereal> cartList = (ArrayList<cereal>) session.getAttribute("cartlist");
-	cereal goodsQnt = new cereal();
-	for (int i = 0; i < cartList.size(); i++) { // 상품리스트 하나씩 출력하기
-		goodsQnt = cartList.get(i);
-		if (goodsQnt.getId().equals(id)) {
-			cartList.remove(goodsQnt);
-		}
-	}
+    ArrayList<cereal> cartList = (ArrayList<cereal>) session.getAttribute("cartlist");
+    if (cartList == null) {
+        response.sendRedirect("cart.jsp");
+        return;
+    }
 
-	response.sendRedirect("cart.jsp");
+    for (int i = 0; i < cartList.size(); i++) {
+        if (cartList.get(i).getId().equals(id)) {
+            cartList.remove(i);
+            break;
+        }
+    }
+
+    response.sendRedirect("cart.jsp");
 %>
