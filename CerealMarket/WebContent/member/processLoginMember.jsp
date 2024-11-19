@@ -1,38 +1,47 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ page import="java.util.*"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="javax.naming.*"%>
+<%@ page import="javax.sql.*"%>
 
 <%
-	request.setCharacterEncoding("UTF-8");
+    request.setCharacterEncoding("UTF-8");
 
-	String id = request.getParameter("id");
-	String password = request.getParameter("password");
+    String id = request.getParameter("id");
+    String password = request.getParameter("password");
+
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+
+    try {
+        Context initContext = new InitialContext();
+        DataSource ds = (DataSource) initContext.lookup("java:comp/env/jdbc/MyDB");
+        conn = ds.getConnection();
+        
+        String sql = "SELECT * FROM member WHERE id=? AND password=?";
+        pstmt = conn.prepareStatement(sql);
+        
+        pstmt.setString(1, id);
+        pstmt.setString(2, password);
+        
+        rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            session.setAttribute("sessionId", id);
+            response.sendRedirect("../main.jsp");
+        } else {
+            response.sendRedirect("loginMember.jsp?error=1");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        response.sendRedirect("loginMember.jsp?error=1");
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (pstmt != null) pstmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 %>
-
-<%@ page import="util.ConfigLoader" %>
-<%
-    String dbUrl = ConfigLoader.getDbUrl();
-    String dbUsername = ConfigLoader.getDbUsername();
-    String dbPassword = ConfigLoader.getDbPassword();
-%>
-<c:set var="dbUrl" value="<%= dbUrl %>" />
-<c:set var="dbUsername" value="<%= dbUsername %>" />
-<c:set var="dbPassword" value="<%= dbPassword %>" />
-<sql:setDataSource var="dataSource" driver="com.mysql.cj.jdbc.Driver"
-    url="${dbUrl}" user="${dbUsername}" password="${dbPassword}" />
-
-<sql:query dataSource="${dataSource}" var="resultSet">
-   SELECT * FROM MEMBER WHERE ID=? and password=?  
-   <sql:param value="<%=id%>" />
-	<sql:param value="<%=password%>" />
-</sql:query>
-
-<c:forEach var="row" items="${resultSet.rows}">
-	<%
-		session.setAttribute("sessionId", id);
-	%>
-	<c:redirect url="/main.jsp" />
-</c:forEach>
-
-<c:redirect url="loginMember.jsp?error=1" />
