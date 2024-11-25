@@ -7,7 +7,7 @@
 <html>
 
 <head>
-
+<jsp:include page="/common/header.jsp" />
 <title>Welcome to Yeji's Market</title>
 <script type="text/javascript">
 	function addToCart() {

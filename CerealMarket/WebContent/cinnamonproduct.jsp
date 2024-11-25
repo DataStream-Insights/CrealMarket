@@ -3,7 +3,7 @@
 <%@ page import="dao.cerealRepository"%>
 
 <head>
-
+<jsp:include page="/common/header.jsp" />
 <title>Welcome to Yeji's Cereal Market</title>
 
 <link rel="stylesheet"   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -52,7 +52,14 @@
          %>
         <div class="col-3">
           <div class="card mb-2" style="background-color: #ffffff88; ">
-            <img src="<%=cereal.getFile()%>" alt=" "onclick="location.href='./cinnamonview.jsp?id=<%=cereal.getId()%>'"/>
+            <img class="product-image"
+            	src="<%=cereal.getFile()%>" 
+			     data-product-id="<%=cereal.getId()%>"
+			     data-product-name="<%=cereal.getName()%>"
+			     data-product-price="<%=cereal.getPrice()%>"
+			     alt=" " 
+			     onclick="location.href='./cinnamonview.jsp?id=<%=cereal.getId()%>'"
+			     />
             <div class="card-body">
               <h5 class="card-title" style="color:#8B00FF; text-align:center; font-family: 'PT Sans Narrow', sans-serif;"><%=cereal.getName()%></h5>    
               <p class="card-text" style="text-align:center; color:#39FF14; font-family: 'PT Sans Narrow', sans-serif;"><%=cereal.getPrice()%>$</p>

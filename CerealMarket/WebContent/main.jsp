@@ -4,7 +4,7 @@
 <html>
 
 <head>
-
+<jsp:include page="/common/header.jsp" />
 <title>Welcome to Yeji's Cereal Market</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -20,7 +20,7 @@
    
    .img{
     	position: relative;
-    	background-image: url("../image/cerealbg1.jpg");                                                               
+    	background-image: url("./image/cerealbg1.jpg");                                                               
     	height: 100vh;
     	background-size: cover;
 	}
@@ -56,16 +56,16 @@
 
 <div class="img"> 
 	<div class="a">
-	<a class="navbar-brand" href="cheeriosproduct.jsp" ><img src="./image/cheerios.png" alt="" style="margin-left: 200px"></a>
+	<a class="navbar-brand" href="cheeriosproduct.jsp" data-brand="cheerios"><img src="./image/cheerios.png" alt="cheerios" style="margin-left: 200px"></a>
 </div>
 <div class="a">
-	<a class="navbar-brand" href="cinnamonproduct.jsp" ><img src="./image/cinnamon.png" alt="" style="margin-left: 700px; margin-top:-300px; postion: absolute"></a>
+	<a class="navbar-brand" href="cinnamonproduct.jsp" data-brand="cinnamon"><img src="./image/cinnamon.png" alt="cinnamon" style="margin-left: 700px; margin-top:-300px; position: absolute"></a>
 </div>
 <div class="a">
-	<a class="navbar-brand" href="luckycharmsproduct.jsp" ><img src="./image/luckycharms.png" alt="" style="margin-left: 180px; margin-top:-120px; postion: absolute;"></a>
+	<a class="navbar-brand" href="luckycharmsproduct.jsp" data-brand="luckycharms"><img src="./image/luckycharms.png" alt="luckycharms" style="margin-left: 180px; margin-top:-70px; position: absolute;"></a>
 </div>
 <div class="a">
-	<a class="navbar-brand" href="kelloggproduct.jsp" ><img src="./image/kellogg.png" alt="" style="margin-left: 700px; margin-top:-230px; postion: absolute;"></a>
+	<a class="navbar-brand" href="kelloggproduct.jsp" data-brand="kellogg"><img src="./image/kellogg.png" alt="kellogg" style="margin-left: 700px; margin-top:0px; position: absolute;"></a>
 </div>
 
 </div>
