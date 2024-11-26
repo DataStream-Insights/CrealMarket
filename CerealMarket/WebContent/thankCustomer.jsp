@@ -106,7 +106,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Indie+Flower&display=swap" rel="stylesheet">
-
+<jsp:include page="/common/header.jsp" />
 <title>주문 완료</title>
 </head>
 <body>

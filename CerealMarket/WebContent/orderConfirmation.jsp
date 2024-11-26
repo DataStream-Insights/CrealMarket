@@ -7,6 +7,9 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 
+	// 세션에서 사용자 ID 가져오기 추가
+	String member_id = (String) session.getAttribute("sessionId");
+
 	String cartId = session.getId();
 
 	String shipping_cartId = "";
@@ -46,7 +49,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Indie+Flower&family=Poor+Story&display=swap" rel="stylesheet">
-
+<jsp:include page="/common/header.jsp" />
 <title>Order Confirmation</title>
 <style>
    .img{
@@ -64,6 +67,7 @@
 </head>
 <body class ="img">
 	<jsp:include page="menu.jsp" />
+	<input type="hidden" id="memberId" value="<%= member_id != null ? member_id : "anonymous" %>">
 	<div class="jumbotron">
 		<div class="container">
 			<h1 class="display-3" style="font-family: 'Indie Flower', cursive;">ORDER CONFIRMATION</h1>
@@ -120,7 +124,7 @@
 			</table>
 			
 				<a href="./shippingInfo.jsp?cartId=<%=shipping_cartId%>"class="btn btn-outline-secondary" role="button" style = "color:#7690AC; font-family: 'Comfortaa', cursive;"> BACK </a>
-				<a href="./thankCustomer.jsp"  class="btn btn-dark" role="button" style = "background-color: #8FB0C6; font-family: 'Comfortaa', cursive;"> ORDER COMPLETE </a>
+				<a href="./thankCustomer.jsp" id="completeOrderBtn" class="btn btn-dark" role="button" style = "background-color: #8FB0C6; font-family: 'Comfortaa', cursive;"> ORDER COMPLETE </a>
 				<a href="./checkOutCancelled.jsp" class="btn btn-outline-secondary"	role="button" style = "color:#7690AC; font-family: 'Comfortaa', cursive;"> CANCEL ORDER</a>			
 		</div>
 	</div>	
